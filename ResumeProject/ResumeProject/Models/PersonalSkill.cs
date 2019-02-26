@@ -9,7 +9,7 @@ namespace ResumeProject.Models
     {
         public int ID { get; set; }
         public int PersonID { get; set; }
-        public int YearsExperience { get; set; }
+        //public int YearsExperience { get; set; }
         public string Skill { get; set; }
 
         //navigational Properties

@@ -149,6 +149,34 @@ namespace ResumeProject.Data
             var Experiences = new Experience[]
             {
                 //add experience
+                new Experience
+                {
+                    Role = "",
+                    Organization = "",
+                    CurrentlyStillWorking = true,
+                    YearsService = 2,
+                },
+                new Experience
+                {
+                    Role = "",
+                    Organization = "",
+                    CurrentlyStillWorking = true,
+                    YearsService = 2,
+                },
+                new Experience
+                {
+                    Role = "",
+                    Organization = "",
+                    CurrentlyStillWorking = true,
+                    YearsService = 2,
+                },
+                new Experience
+                {
+                    Role = "",
+                    Organization = "",
+                    CurrentlyStillWorking = true,
+                    YearsService = 2,
+                }
             };
             foreach (Experience e in Experiences)
             {
@@ -161,7 +189,47 @@ namespace ResumeProject.Data
         {
             var Events = new Event[]
             {
-                //add conferences and hack-athons here
+                //add conferences and hack-a-thons here
+                new Event
+                {
+                    PersonID = 1,
+                    EventType = "Conference",
+                    Role = "Poster Presenter",
+                    Description = "ACS- American Chemical Society National Conference Denver, Co",
+                    EventDate = DateTime.Parse("03-01-2015")
+                },
+                 new Event
+                {
+                    PersonID = 1,
+                    EventType = "Conference",
+                    Role = "Poster Presenter",
+                    Description = "INBRE- IDeA Networks of Biomedical Research Excellence Santa Fe, NM",
+                    EventDate = DateTime.Parse("03-01-2015")
+                },
+                 new Event
+                {
+                    PersonID = 1,
+                    EventType = "Conference",
+                    Role = "Panel",
+                    Description = "SKC- Shared Knowledge Conference: Engaging Students in STEM",
+                    EventDate = DateTime.Parse("04-01-2015")
+                },
+                 new Event
+                {
+                    PersonID = 1,
+                    EventType = "Hack-a-thon",
+                    Role = "3rd Place Winner",
+                    Description = "Suncode in Oakland, California Hosted by Powerhouse (of 24 teams)",
+                    EventDate = DateTime.Parse("04-01-2018")
+                },
+                  new Event
+                {
+                    PersonID = 1,
+                    EventType = "Hack-a-thon",
+                    Role = "Organizer",
+                    Description = "Deep Dive first annual Code-a-thon. Civic style hackathon with focus on poverty",
+                    EventDate = DateTime.Parse("03-01-2018")
+                },
             };
             foreach (Event e in Events)
             {
@@ -175,7 +243,34 @@ namespace ResumeProject.Data
             var Educations = new Education[]
             {
                 //add education here
-                new Education{}
+                new Education
+                {
+                    PersonID = 1,
+                    Degree = "Bachlors of Science in Biochemistry",
+                    School = "University of New Mexico",
+                    GraduationDate = DateTime.Parse("05-01-2015")
+                },
+                new Education
+                {
+                    PersonID = 1,
+                    Degree = "PHP Full-Stack Web Development",
+                    School = "Deep Dive Coding Bootcamp",
+                    GraduationDate = DateTime.Parse("05-01-2017")
+                },
+                new Education
+                {
+                    PersonID = 1,
+                    Degree = ".NET Development",
+                    School = "Deep Dive Coding Bootcamp",
+                    GraduationDate = DateTime.Parse("03-21-2019")
+                },
+                new Education
+                {
+                    PersonID = 1,
+                    Degree = "High School Diploma",
+                    School = "Public Academy for the Performing Arts",
+                    GraduationDate = DateTime.Parse("05-01-2009")
+                }
             };
             foreach (Education e in Educations)
             {
@@ -189,6 +284,24 @@ namespace ResumeProject.Data
             var PersonalSkills = new PersonalSkill[]
             {
                 //add skillz here
+                new PersonalSkill
+                {
+                    PersonID = 1,
+                    Skill = "Freelance photographer and videographer with 8+ years of experience in Adobe products: Lightroom, Photoshop, More recently Premiere cut Pro and Illustrator.",
+                    //YearsExperience = 10
+                },
+                new PersonalSkill
+                {
+                    PersonID = 1,
+                    Skill = "International Traveler- I enjoy traveling and have comfortably been all over the US and Canada and have traveled internationally to China and India.",
+                    //YearsExperience = 9
+                },
+                new PersonalSkill
+                {
+                    PersonID = 1,
+                    Skill = "Years of theatre and film experience as well as  Public Speaking instruction has helped my confidence with giving talks in-front of large crowds.",
+                    //YearsExperience = 10
+                }
             };
             foreach (PersonalSkill p in PersonalSkills)
             {
@@ -202,6 +315,13 @@ namespace ResumeProject.Data
             var People = new Person[]
             {
                 //add people here
+                new Person
+                {
+                    FirstName = "Danielle ",
+                    LastName = "Isles Martin",
+                    PhoneNumber = 505-803-7519,
+                    Email = "danielleislesmartin@gmail.com"
+                }
             };
             foreach (Person p in People)
             {

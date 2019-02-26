@@ -25,8 +25,6 @@ namespace ResumeProject.Models
 
         public int PhoneNumber { get; set; }
         public string Email { get; set; }
-
-        //navigational Properties
     }
 
 
