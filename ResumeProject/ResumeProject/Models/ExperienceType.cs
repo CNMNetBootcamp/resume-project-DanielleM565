@@ -8,16 +8,24 @@ namespace ResumeProject.Models
     public class ExperienceType
     {
         public int ID { get; set; }
+        public int ExperienceID { get; set; }
+
+        public string ExpType { get; set; }
+
+        //public class ExpType
+        //{
+        //    List<string> Type = new List<string>();
+        //}
         
-        public List<string> ExpType
-        {
-           get {
-                string[] input =
-                    { "Volunteering", "Work", "Teaching" };
-                List<string> typeArray = new List<string>(input);
-                return typeArray;
-                }
-        }
+        //{
+        //    get
+        //    {
+        //        string[] input =
+        //            { "Volunteering", "Work", "Teaching" };
+        //        List<string> typeArray = new List<string>(input);
+        //        return typeArray;
+        //    }
+        //}
 
         //navigational properties
         public Experience Experience { get; set; }

@@ -8,6 +8,7 @@ namespace ResumeProject.Models
     public class Description
     {
         public int ID { get; set; }
+        public int ExperienceID { get; set; }
         public string Duties { get; set; }
 
         //navigational properties 

@@ -123,6 +123,62 @@ namespace ResumeProject.Data
             var Descriptions = new Description[]
             {
                 //long strings for experience
+                new Description
+                {
+                    ExperienceID = 1,
+                    Duties = "Data Analyst for Building/ Energy Management Systems and trending, skilled specifically in data extraction from Trane, Automated Control Systems, and Integrated Control Systems.",
+                },
+                new Description
+                {
+                    ExperienceID = 1,
+                    Duties = "Build prototype devices for the field which may entail the following: safely solder, program new devices and customize sensor software based on site audits.",
+                },
+                new Description
+                {
+                    ExperienceID = 1,
+                    Duties = "Front-end Software Developer for client web application. Key partner to development team aiding with site’s style in CSS and functionality JavaScript.",
+                },
+                new Description
+                {
+                    ExperienceID = 1,
+                    Duties = "Code custom data visualization graphing tools using Highcharts.js library to go from raw data to graph faster than excel (depending on data quality).",
+                },
+                new Description
+                {
+                    ExperienceID = 1,
+                    Duties = "Knowledgeable in using and fixing tools in Windows 10 and Office 365 applications such as: Outlook, SharePoint, Excel, PowerPoint and others.",
+                },
+                new Description
+                {
+                    ExperienceID = 2,
+                    Duties = "Design experiments and analyze data in technical research projects working on a team and individually.",
+                },
+                new Description
+                {
+                    ExperienceID = 2,
+                    Duties = "Communicate findings in group meetings and keeping an organized scientific journal.",
+                },
+                new Description
+                {
+                    ExperienceID = 2,
+                    Duties = "Attention to detail when interpreting or analyzing data and communicating findings to colleagues.",
+                },
+                new Description
+                {
+                    ExperienceID = 3,
+                    Duties = "Monthly meetings with American Association of University Women members to organize activities and plan for the week-long math and science camp held annually at local universities.",
+                },
+                new Description
+                {
+                    ExperienceID = 4,
+                    Duties = "Instructed class of up to 75 students at a given time through applied learning styled laboratory experiments.",
+                },
+                new Description
+                {
+                    ExperienceID = 4,
+                    Duties = "Skilled in handling emergencies with the utmost care and consideration.",
+                },
+
             };
             foreach (Description d in Descriptions)
             {
@@ -136,6 +192,26 @@ namespace ResumeProject.Data
             var ExperienceTypes = new ExperienceType[]
             {
                 //V, J or T
+                new ExperienceType
+                {
+                    ExperienceID = 1,
+                    ExpType = "Work"
+                },
+                new ExperienceType
+                {
+                    ExperienceID = 2,
+                    ExpType = "Work"
+                },
+                new ExperienceType
+                {
+                    ExperienceID = 2,
+                    ExpType = "Volunteering"
+                },
+                new ExperienceType
+                {
+                    ExperienceID = 2,
+                    ExpType = "Teaching"
+                }
             };
             foreach (ExperienceType e in ExperienceTypes)
             {
@@ -151,30 +227,30 @@ namespace ResumeProject.Data
                 //add experience
                 new Experience
                 {
-                    Role = "",
-                    Organization = "",
+                    Role = "Technical Project Manager",
+                    Organization = "Mountain Vector Energy",
                     CurrentlyStillWorking = true,
                     YearsService = 2,
                 },
                 new Experience
                 {
-                    Role = "",
-                    Organization = "",
-                    CurrentlyStillWorking = true,
-                    YearsService = 2,
+                    Role = "Lab Technician: Biomedical Research",
+                    Organization = "University of New Mexico's Department of Biochemistry & Molecular Biology",
+                    CurrentlyStillWorking = false,
+                    YearsService = 1,
                 },
                 new Experience
                 {
-                    Role = "",
-                    Organization = "",
+                    Role = "Counselor, Dorm supervisor, Photographer",
+                    Organization = "AAUW's tech Trek Camp for Girls",
                     CurrentlyStillWorking = true,
-                    YearsService = 2,
+                    YearsService = 5,
                 },
                 new Experience
                 {
-                    Role = "",
-                    Organization = "",
-                    CurrentlyStillWorking = true,
+                    Role = "Lab Technician Assistant",
+                    Organization = "UNM Department of Chemistry",
+                    CurrentlyStillWorking = false,
                     YearsService = 2,
                 }
             };
@@ -301,7 +377,13 @@ namespace ResumeProject.Data
                     PersonID = 1,
                     Skill = "Years of theatre and film experience as well as  Public Speaking instruction has helped my confidence with giving talks in-front of large crowds.",
                     //YearsExperience = 10
-                }
+                },
+                new PersonalSkill
+                {
+                    PersonID = 1,
+                    Skill = "Over 10 years of experience working in customer service in a variety of settings including; face-to-face, over the phone and via electronic communications. Positions held including hostess, waitress and cashier",
+                    //YearsExperience = 9
+                },
             };
             foreach (PersonalSkill p in PersonalSkills)
             {
