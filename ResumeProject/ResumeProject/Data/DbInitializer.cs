@@ -13,16 +13,16 @@ namespace ResumeProject.Data
             context.Database.EnsureCreated();
 
             //look for where all the peeps at
-            if (context.People.Any())
-            {
-                return; //DB seeded
-            }
+            //if (context.People.Any())
+            //    {
+            //        return; //DB seeded
+            //    }
 
             if (context.People.Any())
             {
-                foreach (var Person in context.People)
+                foreach (var person in context.People)
                 {
-                    context.People.Remove(Person);
+                    context.People.Remove(person);
                 }
                 context.SaveChanges();
                 AddPeople(context);
@@ -399,10 +399,10 @@ namespace ResumeProject.Data
                 //add people here
                 new Person
                 {
-                    FirstName = "Danielle ",
-                    LastName = "Isles Martin",
-                    PhoneNumber = 505-803-7519,
-                    Email = "danielleislesmartin@gmail.com"
+                    FirstName="Danielle",
+                    LastName="Isles Martin",
+                    PhoneNumber=505-803-7519,
+                    Email="danielleislesmartin@gmail.com"
                 }
             };
             foreach (Person p in People)
