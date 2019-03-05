@@ -34,6 +34,8 @@ namespace ResumeProject.Controllers
             }
 
             var person = await _context.People
+                //.Include(e => e.Education)
+                .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (person == null)
             {

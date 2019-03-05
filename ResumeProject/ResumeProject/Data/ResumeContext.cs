@@ -30,6 +30,7 @@ namespace ResumeProject.Data
             modelBuilder.Entity<ExperienceType>().ToTable("ExperienceType");
             modelBuilder.Entity<Person>().ToTable("Person");
             modelBuilder.Entity<PersonalSkill>().ToTable("PersonalSkill");
+
         }
     }
 }

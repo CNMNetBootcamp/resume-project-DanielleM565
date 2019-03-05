@@ -5,10 +5,26 @@ using System.Collections.Generic;
 
 namespace ResumeProject.Migrations
 {
-    public partial class creatingdatabase : Migration
+    public partial class createdatbase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Person",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Email = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(maxLength: 50, nullable: true),
+                    PhoneNumber = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Person", x => x.ID);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Education",
                 columns: table => new
@@ -23,6 +39,12 @@ namespace ResumeProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Education", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Education_Person_PersonID",
+                        column: x => x.PersonID,
+                        principalTable: "Person",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -40,14 +62,19 @@ namespace ResumeProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Event", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Event_Person_PersonID",
+                        column: x => x.PersonID,
+                        principalTable: "Person",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Experience",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ID = table.Column<int>(nullable: false),
                     CurrentlyStillWorking = table.Column<bool>(nullable: false),
                     Organization = table.Column<string>(nullable: true),
                     Role = table.Column<string>(nullable: true),
@@ -56,6 +83,12 @@ namespace ResumeProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Experience", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Experience_Person_ID",
+                        column: x => x.ID,
+                        principalTable: "Person",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,6 +103,12 @@ namespace ResumeProject.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PersonalSkill", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_PersonalSkill_Person_PersonID",
+                        column: x => x.PersonID,
+                        principalTable: "Person",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -112,79 +151,31 @@ namespace ResumeProject.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Person",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    EducationID = table.Column<int>(nullable: true),
-                    Email = table.Column<string>(nullable: true),
-                    EventID = table.Column<int>(nullable: true),
-                    ExperienceID = table.Column<int>(nullable: true),
-                    FirstName = table.Column<string>(maxLength: 50, nullable: true),
-                    LastName = table.Column<string>(maxLength: 50, nullable: true),
-                    PersonalSkillID = table.Column<int>(nullable: true),
-                    PhoneNumber = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Person", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Person_Education_EducationID",
-                        column: x => x.EducationID,
-                        principalTable: "Education",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Person_Event_EventID",
-                        column: x => x.EventID,
-                        principalTable: "Event",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Person_Experience_ExperienceID",
-                        column: x => x.ExperienceID,
-                        principalTable: "Experience",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Person_PersonalSkill_PersonalSkillID",
-                        column: x => x.PersonalSkillID,
-                        principalTable: "PersonalSkill",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Description_ExperienceID",
                 table: "Description",
                 column: "ExperienceID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Education_PersonID",
+                table: "Education",
+                column: "PersonID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Event_PersonID",
+                table: "Event",
+                column: "PersonID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ExperienceType_ExperienceID",
                 table: "ExperienceType",
-                column: "ExperienceID");
+                column: "ExperienceID",
+                unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Person_EducationID",
-                table: "Person",
-                column: "EducationID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Person_EventID",
-                table: "Person",
-                column: "EventID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Person_ExperienceID",
-                table: "Person",
-                column: "ExperienceID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Person_PersonalSkillID",
-                table: "Person",
-                column: "PersonalSkillID");
+                name: "IX_PersonalSkill_PersonID",
+                table: "PersonalSkill",
+                column: "PersonID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -193,22 +184,22 @@ namespace ResumeProject.Migrations
                 name: "Description");
 
             migrationBuilder.DropTable(
-                name: "ExperienceType");
-
-            migrationBuilder.DropTable(
-                name: "Person");
-
-            migrationBuilder.DropTable(
                 name: "Education");
 
             migrationBuilder.DropTable(
                 name: "Event");
 
             migrationBuilder.DropTable(
-                name: "Experience");
+                name: "ExperienceType");
 
             migrationBuilder.DropTable(
                 name: "PersonalSkill");
+
+            migrationBuilder.DropTable(
+                name: "Experience");
+
+            migrationBuilder.DropTable(
+                name: "Person");
         }
     }
 }

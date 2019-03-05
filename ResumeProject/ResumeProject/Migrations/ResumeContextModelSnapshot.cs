@@ -51,6 +51,8 @@ namespace ResumeProject.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("PersonID");
+
                     b.ToTable("Education");
                 });
 
@@ -71,13 +73,14 @@ namespace ResumeProject.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("PersonID");
+
                     b.ToTable("Event");
                 });
 
             modelBuilder.Entity("ResumeProject.Models.Experience", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("ID");
 
                     b.Property<bool>("CurrentlyStillWorking");
 
@@ -103,7 +106,8 @@ namespace ResumeProject.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("ExperienceID");
+                    b.HasIndex("ExperienceID")
+                        .IsUnique();
 
                     b.ToTable("ExperienceType");
                 });
@@ -113,13 +117,7 @@ namespace ResumeProject.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("EducationID");
-
                     b.Property<string>("Email");
-
-                    b.Property<int?>("EventID");
-
-                    b.Property<int?>("ExperienceID");
 
                     b.Property<string>("FirstName")
                         .HasMaxLength(50);
@@ -127,19 +125,9 @@ namespace ResumeProject.Migrations
                     b.Property<string>("LastName")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("PersonalSkillID");
-
                     b.Property<int>("PhoneNumber");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("EducationID");
-
-                    b.HasIndex("EventID");
-
-                    b.HasIndex("ExperienceID");
-
-                    b.HasIndex("PersonalSkillID");
 
                     b.ToTable("Person");
                 });
@@ -155,42 +143,57 @@ namespace ResumeProject.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("PersonID");
+
                     b.ToTable("PersonalSkill");
                 });
 
             modelBuilder.Entity("ResumeProject.Models.Description", b =>
                 {
                     b.HasOne("ResumeProject.Models.Experience", "Experience")
-                        .WithMany()
+                        .WithMany("Descriptions")
                         .HasForeignKey("ExperienceID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ResumeProject.Models.Education", b =>
+                {
+                    b.HasOne("ResumeProject.Models.Person", "Persons")
+                        .WithMany("Educations")
+                        .HasForeignKey("PersonID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ResumeProject.Models.Event", b =>
+                {
+                    b.HasOne("ResumeProject.Models.Person", "Persons")
+                        .WithMany("Events")
+                        .HasForeignKey("PersonID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ResumeProject.Models.Experience", b =>
+                {
+                    b.HasOne("ResumeProject.Models.Person", "Persons")
+                        .WithOne("Experience")
+                        .HasForeignKey("ResumeProject.Models.Experience", "ID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ResumeProject.Models.ExperienceType", b =>
                 {
                     b.HasOne("ResumeProject.Models.Experience", "Experience")
-                        .WithMany()
-                        .HasForeignKey("ExperienceID")
+                        .WithOne("ExperienceTypes")
+                        .HasForeignKey("ResumeProject.Models.ExperienceType", "ExperienceID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("ResumeProject.Models.Person", b =>
+            modelBuilder.Entity("ResumeProject.Models.PersonalSkill", b =>
                 {
-                    b.HasOne("ResumeProject.Models.Education")
-                        .WithMany("Persons")
-                        .HasForeignKey("EducationID");
-
-                    b.HasOne("ResumeProject.Models.Event")
-                        .WithMany("Persons")
-                        .HasForeignKey("EventID");
-
-                    b.HasOne("ResumeProject.Models.Experience")
-                        .WithMany("Persons")
-                        .HasForeignKey("ExperienceID");
-
-                    b.HasOne("ResumeProject.Models.PersonalSkill")
-                        .WithMany("Persons")
-                        .HasForeignKey("PersonalSkillID");
+                    b.HasOne("ResumeProject.Models.Person", "Persons")
+                        .WithMany("PersonalSkills")
+                        .HasForeignKey("PersonID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

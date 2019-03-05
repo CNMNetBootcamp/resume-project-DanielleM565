@@ -17,6 +17,8 @@ namespace ResumeProject.Models
         public int YearsService { get; set; }
 
         //navigational properties
-        public ICollection<Person> Persons { get; set; }
+        public Person Persons { get; set; }
+        public ICollection<Description> Descriptions { get; set; }
+        public ExperienceType ExperienceTypes {get; set;}
     }
 }

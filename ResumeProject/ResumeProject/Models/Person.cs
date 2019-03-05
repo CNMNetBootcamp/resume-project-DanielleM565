@@ -26,6 +26,12 @@ namespace ResumeProject.Models
 
         public int PhoneNumber { get; set; }
         public string Email { get; set; }
+
+        //navigational properties
+        public Experience Experience { get; set; }
+        public ICollection<Education> Educations { get; set; }
+        public ICollection<Event> Events { get; set; }
+        public ICollection<PersonalSkill> PersonalSkills { get; set; }
     }
 
 

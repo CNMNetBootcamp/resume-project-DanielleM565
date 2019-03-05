@@ -13,6 +13,6 @@ namespace ResumeProject.Models
         public string Skill { get; set; }
 
         //navigational Properties
-        public ICollection<Person> Persons { get; set; }
+        public Person Persons { get; set; }
     }
 }

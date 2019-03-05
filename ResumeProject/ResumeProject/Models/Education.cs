@@ -18,6 +18,6 @@ namespace ResumeProject.Models
         public string Degree { get; set; }
         public string School { get; set; }
 
-        public ICollection<Person> Persons { get; set; }
+        public Person Persons { get; set; }
     }
 }
