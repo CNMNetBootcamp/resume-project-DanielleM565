@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ResumeProject.Migrations
 {
-    public partial class createdatbase : Migration
+    public partial class updatedatabasecResmeConxt : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -74,9 +74,12 @@ namespace ResumeProject.Migrations
                 name: "Experience",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false),
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CurrentlyStillWorking = table.Column<bool>(nullable: false),
+                    ExperienceType = table.Column<string>(nullable: true),
                     Organization = table.Column<string>(nullable: true),
+                    PersonID = table.Column<int>(nullable: false),
                     Role = table.Column<string>(nullable: true),
                     YearsService = table.Column<int>(nullable: false)
                 },
@@ -84,8 +87,8 @@ namespace ResumeProject.Migrations
                 {
                     table.PrimaryKey("PK_Experience", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Experience_Person_ID",
-                        column: x => x.ID,
+                        name: "FK_Experience_Person_PersonID",
+                        column: x => x.PersonID,
                         principalTable: "Person",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -131,26 +134,6 @@ namespace ResumeProject.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ExperienceType",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ExpType = table.Column<string>(nullable: true),
-                    ExperienceID = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ExperienceType", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_ExperienceType_Experience_ExperienceID",
-                        column: x => x.ExperienceID,
-                        principalTable: "Experience",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_Description_ExperienceID",
                 table: "Description",
@@ -167,9 +150,9 @@ namespace ResumeProject.Migrations
                 column: "PersonID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ExperienceType_ExperienceID",
-                table: "ExperienceType",
-                column: "ExperienceID",
+                name: "IX_Experience_PersonID",
+                table: "Experience",
+                column: "PersonID",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -188,9 +171,6 @@ namespace ResumeProject.Migrations
 
             migrationBuilder.DropTable(
                 name: "Event");
-
-            migrationBuilder.DropTable(
-                name: "ExperienceType");
 
             migrationBuilder.DropTable(
                 name: "PersonalSkill");

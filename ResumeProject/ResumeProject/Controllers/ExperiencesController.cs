@@ -22,7 +22,8 @@ namespace ResumeProject.Controllers
         // GET: Experiences
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Experiences.ToListAsync());
+            var resumeContext = _context.Experiences.Include(e => e.Persons);
+            return View(await resumeContext.ToListAsync());
         }
 
         // GET: Experiences/Details/5
@@ -34,6 +35,7 @@ namespace ResumeProject.Controllers
             }
 
             var experience = await _context.Experiences
+                .Include(e => e.Persons)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (experience == null)
             {
@@ -46,6 +48,7 @@ namespace ResumeProject.Controllers
         // GET: Experiences/Create
         public IActionResult Create()
         {
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID");
             return View();
         }
 
@@ -54,7 +57,7 @@ namespace ResumeProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Role,Organization,CurrentlyStillWorking,YearsService")] Experience experience)
+        public async Task<IActionResult> Create([Bind("ID,PersonID,Role,Organization,CurrentlyStillWorking,YearsService,ExperienceTypeID")] Experience experience)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +65,7 @@ namespace ResumeProject.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID", experience.PersonID);
             return View(experience);
         }
 
@@ -78,6 +82,7 @@ namespace ResumeProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID", experience.PersonID);
             return View(experience);
         }
 
@@ -86,7 +91,7 @@ namespace ResumeProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Role,Organization,CurrentlyStillWorking,YearsService")] Experience experience)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,PersonID,Role,Organization,CurrentlyStillWorking,YearsService,ExperienceTypeID")] Experience experience)
         {
             if (id != experience.ID)
             {
@@ -113,6 +118,7 @@ namespace ResumeProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID", experience.PersonID);
             return View(experience);
         }
 
@@ -125,6 +131,7 @@ namespace ResumeProject.Controllers
             }
 
             var experience = await _context.Experiences
+                .Include(e => e.Persons)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (experience == null)
             {

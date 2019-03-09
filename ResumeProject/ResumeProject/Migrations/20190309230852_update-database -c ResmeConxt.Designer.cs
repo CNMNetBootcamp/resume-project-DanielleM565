@@ -11,8 +11,8 @@ using System;
 namespace ResumeProject.Migrations
 {
     [DbContext(typeof(ResumeContext))]
-    [Migration("20190301033616_create-datbase")]
-    partial class createdatbase
+    [Migration("20190309230852_update-database -c ResmeConxt")]
+    partial class updatedatabasecResmeConxt
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -81,11 +81,16 @@ namespace ResumeProject.Migrations
 
             modelBuilder.Entity("ResumeProject.Models.Experience", b =>
                 {
-                    b.Property<int>("ID");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<bool>("CurrentlyStillWorking");
 
+                    b.Property<string>("ExperienceType");
+
                     b.Property<string>("Organization");
+
+                    b.Property<int>("PersonID");
 
                     b.Property<string>("Role");
 
@@ -93,24 +98,10 @@ namespace ResumeProject.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Experience");
-                });
-
-            modelBuilder.Entity("ResumeProject.Models.ExperienceType", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ExpType");
-
-                    b.Property<int>("ExperienceID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ExperienceID")
+                    b.HasIndex("PersonID")
                         .IsUnique();
 
-                    b.ToTable("ExperienceType");
+                    b.ToTable("Experience");
                 });
 
             modelBuilder.Entity("ResumeProject.Models.Person", b =>
@@ -177,15 +168,7 @@ namespace ResumeProject.Migrations
                 {
                     b.HasOne("ResumeProject.Models.Person", "Persons")
                         .WithOne("Experience")
-                        .HasForeignKey("ResumeProject.Models.Experience", "ID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ResumeProject.Models.ExperienceType", b =>
-                {
-                    b.HasOne("ResumeProject.Models.Experience", "Experience")
-                        .WithOne("ExperienceTypes")
-                        .HasForeignKey("ResumeProject.Models.ExperienceType", "ExperienceID")
+                        .HasForeignKey("ResumeProject.Models.Experience", "PersonID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

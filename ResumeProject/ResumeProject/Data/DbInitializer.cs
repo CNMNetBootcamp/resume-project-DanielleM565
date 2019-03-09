@@ -88,20 +88,6 @@ namespace ResumeProject.Data
                 AddExperiences(context);
             }
 
-            if (context.ExperienceTypes.Any())
-            {
-                foreach (var ExperienceType in context.ExperienceTypes)
-                {
-                    context.ExperienceTypes.Remove(ExperienceType);
-                }
-                context.SaveChanges();
-                AddExperienceTypes(context);
-            }
-            else
-            {
-                AddExperienceTypes(context);
-            }
-
             if (context.Descriptions.Any())
             {
                 foreach (var Description in context.Descriptions)
@@ -187,39 +173,6 @@ namespace ResumeProject.Data
             context.SaveChanges();
         }
 
-        private static void AddExperienceTypes(ResumeContext context)
-        {
-            var ExperienceTypes = new ExperienceType[]
-            {
-                //V, J or T
-                new ExperienceType
-                {
-                    ExperienceID = 1,
-                    ExpType = "Work"
-                },
-                new ExperienceType
-                {
-                    ExperienceID = 2,
-                    ExpType = "Work"
-                },
-                new ExperienceType
-                {
-                    ExperienceID = 2,
-                    ExpType = "Volunteering"
-                },
-                new ExperienceType
-                {
-                    ExperienceID = 2,
-                    ExpType = "Teaching"
-                }
-            };
-            foreach (ExperienceType e in ExperienceTypes)
-            {
-                context.ExperienceTypes.Add(e);
-            }
-            context.SaveChanges();
-        }
-
         private static void AddExperiences(ResumeContext context)
         {
             var Experiences = new Experience[]
@@ -227,31 +180,39 @@ namespace ResumeProject.Data
                 //add experience
                 new Experience
                 {
+                    PersonID = context.People.SingleOrDefault(y => y.FirstName == "Danielle").ID,
                     Role = "Technical Project Manager",
                     Organization = "Mountain Vector Energy",
                     CurrentlyStillWorking = true,
                     YearsService = 2,
+                    ExperienceType = "Work",
                 },
                 new Experience
                 {
+                    PersonID = context.People.SingleOrDefault(y => y.FirstName == "Danielle").ID,
                     Role = "Lab Technician: Biomedical Research",
                     Organization = "University of New Mexico's Department of Biochemistry & Molecular Biology",
                     CurrentlyStillWorking = false,
                     YearsService = 1,
+                    ExperienceType = "Work",
                 },
                 new Experience
                 {
+                    PersonID = context.People.SingleOrDefault(y => y.FirstName == "Danielle").ID,
                     Role = "Counselor, Dorm supervisor, Photographer",
                     Organization = "AAUW's tech Trek Camp for Girls",
                     CurrentlyStillWorking = true,
                     YearsService = 5,
+                    ExperienceType = "Volunteering",
                 },
                 new Experience
                 {
+                    PersonID = context.People.SingleOrDefault(y => y.FirstName == "Danielle").ID,
                     Role = "Lab Technician Assistant",
                     Organization = "UNM Department of Chemistry",
                     CurrentlyStillWorking = false,
                     YearsService = 2,
+                    ExperienceType = "Teaching",
                 }
             };
             foreach (Experience e in Experiences)
