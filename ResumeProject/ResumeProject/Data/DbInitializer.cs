@@ -305,7 +305,7 @@ namespace ResumeProject.Data
         }
 
         private static void AddDescriptions(ResumeContext context)
-        {
+        {  
             var Descriptions = new Description[]
             {
                 //long strings for experience
@@ -336,17 +336,17 @@ namespace ResumeProject.Data
                 },
                 new Description
                 {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Lab Technician: Biomedical Research").ID,
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "University of New Mexico's Department of Biochemistry & Molecular Biology").ID,
                     Duties = "Design experiments and analyze data in technical research projects working on a team and individually.",
                 },
                 new Description
                 {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Lab Technician: Biomedical Research").ID,
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "University of New Mexico's Department of Biochemistry & Molecular Biology").ID,
                     Duties = "Communicate findings in group meetings and keeping an organized scientific journal.",
                 },
                 new Description
                 {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Lab Technician: Biomedical Research").ID,
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "University of New Mexico's Department of Biochemistry & Molecular Biology").ID,
                     Duties = "Attention to detail when interpreting or analyzing data and communicating findings to colleagues.",
                 },
                 new Description
