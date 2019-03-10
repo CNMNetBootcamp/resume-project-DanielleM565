@@ -104,120 +104,22 @@ namespace ResumeProject.Data
 
         }
 
-        private static void AddDescriptions(ResumeContext context)
+        private static void AddPeople(ResumeContext context)
         {
-            var Descriptions = new Description[]
+            var People = new Person[]
             {
-                //long strings for experience
-                new Description
+                //add people here
+                new Person
                 {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Mountain Vector Energy").ID,
-                    Duties = "Data Analyst for Building/ Energy Management Systems and trending, skilled specifically in data extraction from Trane, Automated Control Systems, and Integrated Control Systems.",
-                },
-                new Description
-                {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Mountain Vector Energy").ID,
-                    Duties = "Build prototype devices for the field which may entail the following: safely solder, program new devices and customize sensor software based on site audits.",
-                },
-                new Description
-                {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Mountain Vector Energy").ID,
-                    Duties = "Front-end Software Developer for client web application. Key partner to development team aiding with site’s style in CSS and functionality JavaScript.",
-                },
-                new Description
-                {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Mountain Vector Energy").ID,
-                    Duties = "Code custom data visualization graphing tools using Highcharts.js library to go from raw data to graph faster than excel (depending on data quality).",
-                },
-                new Description
-                {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Mountain Vector Energy").ID,
-                    Duties = "Knowledgeable in using and fixing tools in Windows 10 and Office 365 applications such as: Outlook, SharePoint, Excel, PowerPoint and others.",
-                },
-                new Description
-                {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Lab Technician: Biomedical Research").ID,
-                    Duties = "Design experiments and analyze data in technical research projects working on a team and individually.",
-                },
-                new Description
-                {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Lab Technician: Biomedical Research").ID,
-                    Duties = "Communicate findings in group meetings and keeping an organized scientific journal.",
-                },
-                new Description
-                {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Lab Technician: Biomedical Research").ID,
-                    Duties = "Attention to detail when interpreting or analyzing data and communicating findings to colleagues.",
-                },
-                new Description
-                {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "AAUW's tech Trek Camp for Girls").ID,
-                    Duties = "Monthly meetings with American Association of University Women members to organize activities and plan for the week-long math and science camp held annually at local universities.",
-                },
-                new Description
-                {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "UNM Department of Chemistry").ID,
-                    Duties = "Instructed class of up to 75 students at a given time through applied learning styled laboratory experiments.",
-                },
-                new Description
-                {
-                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "UNM Department of Chemistry").ID,
-                    Duties = "Skilled in handling emergencies with the utmost care and consideration.",
-                },
-
-            };
-            foreach (Description d in Descriptions)
-            {
-                context.Descriptions.Add(d);
-            }
-            context.SaveChanges();
-        }
-
-        private static void AddExperiences(ResumeContext context)
-        {
-            var Experiences = new Experience[]
-            {
-                //add experience
-                new Experience
-                {
-                    PersonID = context.People.SingleOrDefault(y => y.FirstName == "Danielle").ID,
-                    Role = "Technical Project Manager",
-                    Organization = "Mountain Vector Energy",
-                    CurrentlyStillWorking = true,
-                    YearsService = 2,
-                    ExperienceType = "Work",
-                },
-                new Experience
-                {
-                    PersonID = context.People.SingleOrDefault(y => y.FirstName == "Danielle").ID,
-                    Role = "Lab Technician: Biomedical Research",
-                    Organization = "University of New Mexico's Department of Biochemistry & Molecular Biology",
-                    CurrentlyStillWorking = false,
-                    YearsService = 1,
-                    ExperienceType = "Work",
-                },
-                new Experience
-                {
-                    PersonID = context.People.SingleOrDefault(y => y.FirstName == "Danielle").ID,
-                    Role = "Counselor, Dorm supervisor, Photographer",
-                    Organization = "AAUW's tech Trek Camp for Girls",
-                    CurrentlyStillWorking = true,
-                    YearsService = 5,
-                    ExperienceType = "Volunteering",
-                },
-                new Experience
-                {
-                    PersonID = context.People.SingleOrDefault(y => y.FirstName == "Danielle").ID,
-                    Role = "Lab Technician Assistant",
-                    Organization = "UNM Department of Chemistry",
-                    CurrentlyStillWorking = false,
-                    YearsService = 2,
-                    ExperienceType = "Teaching",
+                    FirstName="Danielle",
+                    LastName="Isles Martin",
+                    PhoneNumber=505-803-7519,
+                    Email="danielleislesmartin@gmail.com"
                 }
             };
-            foreach (Experience e in Experiences)
+            foreach (Person p in People)
             {
-                context.Experiences.Add(e);
+                context.People.Add(p);
             }
             context.SaveChanges();
         }
@@ -353,22 +255,120 @@ namespace ResumeProject.Data
             context.SaveChanges();
         }
 
-        private static void AddPeople(ResumeContext context)
+        private static void AddExperiences(ResumeContext context)
         {
-            var People = new Person[]
+            var Experiences = new Experience[]
             {
-                //add people here
-                new Person
+                //add experience
+                new Experience
                 {
-                    FirstName="Danielle",
-                    LastName="Isles Martin",
-                    PhoneNumber=505-803-7519,
-                    Email="danielleislesmartin@gmail.com"
+                    PersonID = context.People.Single(y => y.FirstName == "Danielle").ID,
+                    Role = "Technical Project Manager",
+                    Organization = "Mountain Vector Energy",
+                    CurrentlyStillWorking = true,
+                    YearsService = 2,
+                    ExperienceType = "Work",
+                },
+                new Experience
+                {
+                    PersonID = context.People.Single(y => y.FirstName == "Danielle").ID,
+                    Role = "Lab Technician: Biomedical Research",
+                    Organization = "University of New Mexico's Department of Biochemistry & Molecular Biology",
+                    CurrentlyStillWorking = false,
+                    YearsService = 1,
+                    ExperienceType = "Work",
+                },
+                new Experience
+                {
+                    PersonID = context.People.Single(y => y.FirstName == "Danielle").ID,
+                    Role = "Counselor, Dorm supervisor, Photographer",
+                    Organization = "AAUW's tech Trek Camp for Girls",
+                    CurrentlyStillWorking = true,
+                    YearsService = 5,
+                    ExperienceType = "Volunteering",
+                },
+                new Experience
+                {
+                    PersonID = context.People.Single(y => y.FirstName == "Danielle").ID,
+                    Role = "Lab Technician Assistant",
+                    Organization = "UNM Department of Chemistry",
+                    CurrentlyStillWorking = false,
+                    YearsService = 2,
+                    ExperienceType = "Teaching",
                 }
             };
-            foreach (Person p in People)
+            foreach (Experience e in Experiences)
             {
-                context.People.Add(p);
+                context.Experiences.Add(e);
+            }
+            context.SaveChanges();
+        }
+
+        private static void AddDescriptions(ResumeContext context)
+        {
+            var Descriptions = new Description[]
+            {
+                //long strings for experience
+                new Description
+                {
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Mountain Vector Energy").ID,
+                    Duties = "Data Analyst for Building/ Energy Management Systems and trending, skilled specifically in data extraction from Trane, Automated Control Systems, and Integrated Control Systems.",
+                },
+                new Description
+                {
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Mountain Vector Energy").ID,
+                    Duties = "Build prototype devices for the field which may entail the following: safely solder, program new devices and customize sensor software based on site audits.",
+                },
+                new Description
+                {
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Mountain Vector Energy").ID,
+                    Duties = "Front-end Software Developer for client web application. Key partner to development team aiding with site’s style in CSS and functionality JavaScript.",
+                },
+                new Description
+                {
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Mountain Vector Energy").ID,
+                    Duties = "Code custom data visualization graphing tools using Highcharts.js library to go from raw data to graph faster than excel (depending on data quality).",
+                },
+                new Description
+                {
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Mountain Vector Energy").ID,
+                    Duties = "Knowledgeable in using and fixing tools in Windows 10 and Office 365 applications such as: Outlook, SharePoint, Excel, PowerPoint and others.",
+                },
+                new Description
+                {
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Lab Technician: Biomedical Research").ID,
+                    Duties = "Design experiments and analyze data in technical research projects working on a team and individually.",
+                },
+                new Description
+                {
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Lab Technician: Biomedical Research").ID,
+                    Duties = "Communicate findings in group meetings and keeping an organized scientific journal.",
+                },
+                new Description
+                {
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "Lab Technician: Biomedical Research").ID,
+                    Duties = "Attention to detail when interpreting or analyzing data and communicating findings to colleagues.",
+                },
+                new Description
+                {
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "AAUW's tech Trek Camp for Girls").ID,
+                    Duties = "Monthly meetings with American Association of University Women members to organize activities and plan for the week-long math and science camp held annually at local universities.",
+                },
+                new Description
+                {
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "UNM Department of Chemistry").ID,
+                    Duties = "Instructed class of up to 75 students at a given time through applied learning styled laboratory experiments.",
+                },
+                new Description
+                {
+                    ExperienceID = context.Experiences.SingleOrDefault(y => y.Organization == "UNM Department of Chemistry").ID,
+                    Duties = "Skilled in handling emergencies with the utmost care and consideration.",
+                },
+
+            };
+            foreach (Description d in Descriptions)
+            {
+                context.Descriptions.Add(d);
             }
             context.SaveChanges();
         }

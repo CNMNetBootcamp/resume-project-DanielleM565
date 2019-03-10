@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ResumeProject.Migrations
 {
-    public partial class updatedatabasecResmeConxt : Migration
+    public partial class cretedatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -152,8 +152,7 @@ namespace ResumeProject.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Experience_PersonID",
                 table: "Experience",
-                column: "PersonID",
-                unique: true);
+                column: "PersonID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PersonalSkill_PersonID",

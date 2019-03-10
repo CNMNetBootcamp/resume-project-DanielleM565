@@ -28,7 +28,7 @@
                     @Html.DisplayNameFor(model => model.ExperienceType)
                 </th>
             <th>
-                @Html.DisplayNameFor(model => model.Persons)
+                @Html.DisplayNameFor(model => model.People)
             </th>
             <th></th>
         </tr>
@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.ExperienceType)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Persons.ID)
+                @Html.DisplayFor(modelItem => item.People.ID)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

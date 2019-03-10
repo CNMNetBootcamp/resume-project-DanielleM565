@@ -22,7 +22,7 @@ namespace ResumeProject.Controllers
         // GET: Experiences
         public async Task<IActionResult> Index()
         {
-            var resumeContext = _context.Experiences.Include(e => e.Persons);
+            var resumeContext = _context.Experiences.Include(e => e.People);
             return View(await resumeContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace ResumeProject.Controllers
             }
 
             var experience = await _context.Experiences
-                .Include(e => e.Persons)
+                .Include(e => e.People)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (experience == null)
             {
@@ -131,7 +131,7 @@ namespace ResumeProject.Controllers
             }
 
             var experience = await _context.Experiences
-                .Include(e => e.Persons)
+                .Include(e => e.People)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (experience == null)
             {

@@ -11,8 +11,8 @@ using System;
 namespace ResumeProject.Migrations
 {
     [DbContext(typeof(ResumeContext))]
-    [Migration("20190309230852_update-database -c ResmeConxt")]
-    partial class updatedatabasecResmeConxt
+    [Migration("20190310015310_crete-database")]
+    partial class cretedatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -98,8 +98,7 @@ namespace ResumeProject.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("PersonID")
-                        .IsUnique();
+                    b.HasIndex("PersonID");
 
                     b.ToTable("Experience");
                 });
@@ -142,7 +141,7 @@ namespace ResumeProject.Migrations
 
             modelBuilder.Entity("ResumeProject.Models.Description", b =>
                 {
-                    b.HasOne("ResumeProject.Models.Experience", "Experience")
+                    b.HasOne("ResumeProject.Models.Experience", "Experiences")
                         .WithMany("Descriptions")
                         .HasForeignKey("ExperienceID")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -150,7 +149,7 @@ namespace ResumeProject.Migrations
 
             modelBuilder.Entity("ResumeProject.Models.Education", b =>
                 {
-                    b.HasOne("ResumeProject.Models.Person", "Persons")
+                    b.HasOne("ResumeProject.Models.Person", "People")
                         .WithMany("Educations")
                         .HasForeignKey("PersonID")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -158,7 +157,7 @@ namespace ResumeProject.Migrations
 
             modelBuilder.Entity("ResumeProject.Models.Event", b =>
                 {
-                    b.HasOne("ResumeProject.Models.Person", "Persons")
+                    b.HasOne("ResumeProject.Models.Person", "People")
                         .WithMany("Events")
                         .HasForeignKey("PersonID")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -166,15 +165,15 @@ namespace ResumeProject.Migrations
 
             modelBuilder.Entity("ResumeProject.Models.Experience", b =>
                 {
-                    b.HasOne("ResumeProject.Models.Person", "Persons")
-                        .WithOne("Experience")
-                        .HasForeignKey("ResumeProject.Models.Experience", "PersonID")
+                    b.HasOne("ResumeProject.Models.Person", "People")
+                        .WithMany("Experiences")
+                        .HasForeignKey("PersonID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ResumeProject.Models.PersonalSkill", b =>
                 {
-                    b.HasOne("ResumeProject.Models.Person", "Persons")
+                    b.HasOne("ResumeProject.Models.Person", "People")
                         .WithMany("PersonalSkills")
                         .HasForeignKey("PersonID")
                         .OnDelete(DeleteBehavior.Cascade);

@@ -20,7 +20,7 @@ namespace ResumeProject.Models
         
 
         //navigational properties
-        public Person Persons { get; set; }
+        public Person People { get; set; }
         public ICollection<Description> Descriptions { get; set; }
         //public ExperienceType ExperienceTypes { get; set; }
     }

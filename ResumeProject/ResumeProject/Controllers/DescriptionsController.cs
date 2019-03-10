@@ -22,7 +22,7 @@ namespace ResumeProject.Controllers
         // GET: Descriptions
         public async Task<IActionResult> Index()
         {
-            var resumeContext = _context.Descriptions.Include(d => d.Experience);
+            var resumeContext = _context.Descriptions.Include(d => d.Experiences);
             return View(await resumeContext.ToListAsync());
         }
 
@@ -35,7 +35,7 @@ namespace ResumeProject.Controllers
             }
 
             var description = await _context.Descriptions
-                .Include(d => d.Experience)
+                .Include(d => d.Experiences)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (description == null)
             {
@@ -57,7 +57,7 @@ namespace ResumeProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ExperienceID,Duties")] Description description)
+        public async Task<IActionResult> Create([Bind("ID,Duties,ExperienceID")] Description description)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace ResumeProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,ExperienceID,Duties")] Description description)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Duties,ExperienceID")] Description description)
         {
             if (id != description.ID)
             {
@@ -131,7 +131,7 @@ namespace ResumeProject.Controllers
             }
 
             var description = await _context.Descriptions
-                .Include(d => d.Experience)
+                .Include(d => d.Experiences)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (description == null)
             {
