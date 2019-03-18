@@ -60,11 +60,11 @@ namespace ResumeProject.Data
                 AddEducations(context);
             }
 
-            if (context.Events.Any())
+            if (context.Conferences.Any())
             {
-                foreach (var Event in context.Events)
+                foreach (var Event in context.Conferences)
                 {
-                    context.Events.Remove(Event);
+                    context.Conferences.Remove(Event);
                 }
                 context.SaveChanges();
                 AddEvents(context);
@@ -112,7 +112,8 @@ namespace ResumeProject.Data
                 new Person
                 {
                     FirstName="Danielle",
-                    LastName="Isles Martin",
+                    MiddleName="Isles",
+                    LastName="Martin",
                     PhoneNumber=505-803-7519,
                     Email="danielleislesmartin@gmail.com"
                 }
@@ -126,10 +127,10 @@ namespace ResumeProject.Data
 
         private static void AddEvents(ResumeContext context)
         {
-            var Events = new Event[]
+            var Events = new Conference[]
             {
                 //add conferences and hack-a-thons here
-                new Event
+                new Conference
                 {
                     PersonID = context.People.SingleOrDefault(y => y.FirstName == "Danielle").ID,
                     EventType = "Conference",
@@ -137,7 +138,7 @@ namespace ResumeProject.Data
                     Description = "ACS- American Chemical Society National Conference Denver, Co",
                     EventDate = DateTime.Parse("03-01-2015")
                 },
-                 new Event
+                 new Conference
                 {
                     PersonID = context.People.SingleOrDefault(y => y.FirstName == "Danielle").ID,
                     EventType = "Conference",
@@ -145,7 +146,7 @@ namespace ResumeProject.Data
                     Description = "INBRE- IDeA Networks of Biomedical Research Excellence Santa Fe, NM",
                     EventDate = DateTime.Parse("03-01-2015")
                 },
-                 new Event
+                 new Conference
                 {
                     PersonID = context.People.SingleOrDefault(y => y.FirstName == "Danielle").ID,
                     EventType = "Conference",
@@ -153,7 +154,7 @@ namespace ResumeProject.Data
                     Description = "SKC- Shared Knowledge Conference: Engaging Students in STEM",
                     EventDate = DateTime.Parse("04-01-2015")
                 },
-                 new Event
+                 new Conference
                 {
                     PersonID = context.People.SingleOrDefault(y => y.FirstName == "Danielle").ID,
                     EventType = "Hack-a-thon",
@@ -161,7 +162,7 @@ namespace ResumeProject.Data
                     Description = "Suncode in Oakland, California Hosted by Powerhouse (of 24 teams)",
                     EventDate = DateTime.Parse("04-01-2018")
                 },
-                  new Event
+                  new Conference
                 {
                     PersonID = context.People.SingleOrDefault(y => y.FirstName == "Danielle").ID,
                     EventType = "Hack-a-thon",
@@ -170,9 +171,9 @@ namespace ResumeProject.Data
                     EventDate = DateTime.Parse("03-01-2018")
                 },
             };
-            foreach (Event e in Events)
+            foreach (Conference e in Events)
             {
-                context.Events.Add(e);
+                context.Conferences.Add(e);
             }
             context.SaveChanges(); 
         }

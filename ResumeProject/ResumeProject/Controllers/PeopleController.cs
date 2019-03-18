@@ -34,7 +34,11 @@ namespace ResumeProject.Controllers
             }
 
             var person = await _context.People
-                //.Include(e => e.Education)
+                .Include(e => e.Educations)
+                .Include(f => f.Events)
+                .Include(g => g.PersonalSkills)
+                .Include(h => h.Experiences)
+                    .ThenInclude(i => i.Descriptions)
                 .AsNoTracking()
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (person == null)
@@ -56,7 +60,7 @@ namespace ResumeProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,PhoneNumber,Email")] Person person)
+        public async Task<IActionResult> Create([Bind("ID,FirstName,MiddleName,LastName,FullName,PhoneNumber,Email")] Person person)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +92,7 @@ namespace ResumeProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,PhoneNumber,Email")] Person person)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,MiddleName,LastName,FullName,PhoneNumber,Email")] Person person)
         {
             if (id != person.ID)
             {

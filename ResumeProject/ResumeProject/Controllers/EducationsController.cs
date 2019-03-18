@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ResumeProject.Data;
@@ -33,6 +34,7 @@ namespace ResumeProject.Controllers
                 return NotFound();
             }
 
+
             var education = await _context.Educations
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (education == null)
@@ -46,6 +48,7 @@ namespace ResumeProject.Controllers
         // GET: Educations/Create
         public IActionResult Create()
         {
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "FullName");
             return View();
         }
 
@@ -56,11 +59,20 @@ namespace ResumeProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,PersonID,GraduationDate,Degree,School")] Education education)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(education);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(education);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(education);
+            }
+            catch (DbUpdateException)
+            {
+                ModelState.AddModelError("", "Unable to save new Education");
+               
             }
             return View(education);
         }
@@ -78,42 +90,38 @@ namespace ResumeProject.Controllers
             {
                 return NotFound();
             }
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "FullName", education.PersonID);
             return View(education);
         }
 
-        // POST: Educations/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,PersonID,GraduationDate,Degree,School")] Education education)
+        public async Task<IActionResult> EditPost(int id)
         {
-            if (id != education.ID)
+            if (id == null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            var educationToUpdate = await _context.Educations.SingleOrDefaultAsync(e => e.ID == id);
+            if (await TryUpdateModelAsync<Education>(
+                educationToUpdate, 
+                "",
+                e => e.Degree, e => e.School, e => e.GraduationDate))
             {
                 try
                 {
-                    _context.Update(education);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException)
                 {
-                    if (!EducationExists(education.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", "Unable to save changes to education.");
                 }
-                return RedirectToAction(nameof(Index));
             }
-            return View(education);
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "FullName", educationToUpdate.PersonID);
+            return View(educationToUpdate);
         }
 
         // GET: Educations/Delete/5
@@ -130,7 +138,7 @@ namespace ResumeProject.Controllers
             {
                 return NotFound();
             }
-
+            
             return View(education);
         }
 

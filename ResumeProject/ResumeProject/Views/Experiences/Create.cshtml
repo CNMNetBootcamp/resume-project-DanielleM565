@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="PersonID" class="control-label"></label>
-                <select asp-for="PersonID" class ="form-control" asp-items="ViewBag.PersonID"></select>
+                <select asp-for="PersonID" class ="form-control" asp-items="@ViewBag.PersonID"><option id="">Please select one</option></select>
             </div>
             <div class="form-group">
                 <label asp-for="Role" class="control-label"></label>
@@ -39,9 +39,12 @@
                 <span asp-validation-for="YearsService" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ExperienceTypeID" class="control-label"></label>
-                <input asp-for="ExperienceTypeID" class="form-control" />
-                <span asp-validation-for="ExperienceTypeID" class="text-danger"></span>
+                <label asp-for="ExperienceType" class="control-label"></label>
+                <select asp-for="ExperienceType" asp-items="@ViewBag.ExpierenceType"
+                        class="form-control">
+                    <option id="">Please select one</option>
+                </select>
+                <span asp-validation-for="ExperienceType" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

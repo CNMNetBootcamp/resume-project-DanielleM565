@@ -15,7 +15,7 @@ namespace ResumeProject.Data
 
         public DbSet<Description> Descriptions { get; set; }
         public DbSet<Education> Educations { get; set; }
-        public DbSet<Event> Events {get; set;}
+        public DbSet<Conference> Conferences {get; set;}
         public DbSet<Experience> Experiences {get; set;}
         //public DbSet<ExperienceType> ExperienceTypes {get; set;}
         public DbSet<Person> People { get; set; }
@@ -25,7 +25,7 @@ namespace ResumeProject.Data
         {
             modelBuilder.Entity<Description>().ToTable("Description");
             modelBuilder.Entity<Education>().ToTable("Education");
-            modelBuilder.Entity<Event>().ToTable("Event");
+            modelBuilder.Entity<Conference>().ToTable("Conference");
             modelBuilder.Entity<Experience>().ToTable("Experience");
             //modelBuilder.Entity<ExperienceType>().ToTable("ExperienceType");
             modelBuilder.Entity<Person>().ToTable("Person");

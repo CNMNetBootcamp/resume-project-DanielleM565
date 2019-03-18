@@ -35,6 +35,7 @@ namespace ResumeProject.Controllers
             }
 
             var experience = await _context.Experiences
+                .Include(d => d.Descriptions)
                 .Include(e => e.People)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (experience == null)
@@ -48,7 +49,8 @@ namespace ResumeProject.Controllers
         // GET: Experiences/Create
         public IActionResult Create()
         {
-            ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID");
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "FullName");
+            ViewData["ExpierenceType"] = new SelectList(_context.Experiences, "ID", "Volunteering", "Work", "Teaching");
             return View();
         }
 
@@ -57,15 +59,24 @@ namespace ResumeProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,PersonID,Role,Organization,CurrentlyStillWorking,YearsService,ExperienceTypeID")] Experience experience)
+        public async Task<IActionResult> Create([Bind("ID,PersonID,Role,Organization,CurrentlyStillWorking,YearsService,ExperienceType")] Experience experience)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _context.Add(experience);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    _context.Add(experience);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID", experience.PersonID);
+            ViewData["ExpierenceType"] = new SelectList("Volunteering", "Work", "Teaching");
             }
-            ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID", experience.PersonID);
+            catch (DbUpdateException)
+            {
+
+                ModelState.AddModelError("", "Unable to save new Expierence");
+            }
             return View(experience);
         }
 
@@ -82,7 +93,7 @@ namespace ResumeProject.Controllers
             {
                 return NotFound();
             }
-            ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID", experience.PersonID);
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "FullName", experience.PersonID);
             return View(experience);
         }
 
@@ -91,35 +102,29 @@ namespace ResumeProject.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,PersonID,Role,Organization,CurrentlyStillWorking,YearsService,ExperienceTypeID")] Experience experience)
+        public async Task<IActionResult> EditPost(int id)
         {
-            if (id != experience.ID)
+            if (id == null)
             {
                 return NotFound();
             }
-
-            if (ModelState.IsValid)
+            var experienceToUpdate = await _context.Experiences.SingleOrDefaultAsync(e => e.ID == id);
+            if (await TryUpdateModelAsync<Experience>(experienceToUpdate, "",
+            e => e.Role, e => e.Organization, e => e.CurrentlyStillWorking, e => e.YearsService))
             {
                 try
                 {
-                    _context.Update(experience);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateException)
                 {
-                    if (!ExperienceExists(experience.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    ModelState.AddModelError("", "Unable to save changes to Experience.");
                 }
-                return RedirectToAction(nameof(Index));
             }
-            ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID", experience.PersonID);
-            return View(experience);
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID", experienceToUpdate.PersonID);
+            ViewData["ExpierenceType"] = new SelectList("Volunteering", "Work", "Teaching");
+            return View(experienceToUpdate);
         }
 
         // GET: Experiences/Delete/5
@@ -132,6 +137,7 @@ namespace ResumeProject.Controllers
 
             var experience = await _context.Experiences
                 .Include(e => e.People)
+                .Include(y => y.Descriptions)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (experience == null)
             {

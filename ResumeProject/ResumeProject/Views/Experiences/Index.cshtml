@@ -4,8 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
-
+<div class="jumbotron">
+    <h1>Danielle Isles Martin</h1>
+</div>
+<h2>
+    Experience
+</h2>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -27,9 +31,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.ExperienceType)
                 </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.People)
-            </th>
+            </th*@>
             <th></th>
         </tr>
     </thead>
@@ -51,9 +55,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ExperienceType)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.People.ID)
-            </td>
+            </td>*@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.ID">Details</a> |

@@ -10,22 +10,23 @@ using ResumeProject.Models;
 
 namespace ResumeProject.Controllers
 {
-    public class EventsController : Controller
+    public class ConferencesController : Controller
     {
         private readonly ResumeContext _context;
 
-        public EventsController(ResumeContext context)
+        public ConferencesController(ResumeContext context)
         {
             _context = context;
         }
 
-        // GET: Events
+        // GET: Conferences
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Events.ToListAsync());
+            var resumeContext = _context.Conferences.Include(c => c.People);
+            return View(await resumeContext.ToListAsync());
         }
 
-        // GET: Events/Details/5
+        // GET: Conferences/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +34,42 @@ namespace ResumeProject.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events
+            var conference = await _context.Conferences
+                .Include(c => c.People)
                 .SingleOrDefaultAsync(m => m.ID == id);
-            if (@event == null)
+            if (conference == null)
             {
                 return NotFound();
             }
 
-            return View(@event);
+            return View(conference);
         }
 
-        // GET: Events/Create
+        // GET: Conferences/Create
         public IActionResult Create()
         {
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID");
             return View();
         }
 
-        // POST: Events/Create
+        // POST: Conferences/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,PersonID,EventType,Role,Description,EventDate")] Event @event)
+        public async Task<IActionResult> Create([Bind("ID,PersonID,EventType,Role,Description,EventDate")] Conference conference)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(@event);
+                _context.Add(conference);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(@event);
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID", conference.PersonID);
+            return View(conference);
         }
 
-        // GET: Events/Edit/5
+        // GET: Conferences/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +77,23 @@ namespace ResumeProject.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events.SingleOrDefaultAsync(m => m.ID == id);
-            if (@event == null)
+            var conference = await _context.Conferences.SingleOrDefaultAsync(m => m.ID == id);
+            if (conference == null)
             {
                 return NotFound();
             }
-            return View(@event);
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID", conference.PersonID);
+            return View(conference);
         }
 
-        // POST: Events/Edit/5
+        // POST: Conferences/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,PersonID,EventType,Role,Description,EventDate")] Event @event)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,PersonID,EventType,Role,Description,EventDate")] Conference conference)
         {
-            if (id != @event.ID)
+            if (id != conference.ID)
             {
                 return NotFound();
             }
@@ -97,12 +102,12 @@ namespace ResumeProject.Controllers
             {
                 try
                 {
-                    _context.Update(@event);
+                    _context.Update(conference);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventExists(@event.ID))
+                    if (!ConferenceExists(conference.ID))
                     {
                         return NotFound();
                     }
@@ -113,10 +118,11 @@ namespace ResumeProject.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(@event);
+            ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID", conference.PersonID);
+            return View(conference);
         }
 
-        // GET: Events/Delete/5
+        // GET: Conferences/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +130,31 @@ namespace ResumeProject.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Events
+            var conference = await _context.Conferences
+                .Include(c => c.People)
                 .SingleOrDefaultAsync(m => m.ID == id);
-            if (@event == null)
+            if (conference == null)
             {
                 return NotFound();
             }
 
-            return View(@event);
+            return View(conference);
         }
 
-        // POST: Events/Delete/5
+        // POST: Conferences/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var @event = await _context.Events.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Events.Remove(@event);
+            var conference = await _context.Conferences.SingleOrDefaultAsync(m => m.ID == id);
+            _context.Conferences.Remove(conference);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EventExists(int id)
+        private bool ConferenceExists(int id)
         {
-            return _context.Events.Any(e => e.ID == id);
+            return _context.Conferences.Any(e => e.ID == id);
         }
     }
 }

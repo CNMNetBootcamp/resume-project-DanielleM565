@@ -11,8 +11,8 @@ using System;
 namespace ResumeProject.Migrations
 {
     [DbContext(typeof(ResumeContext))]
-    [Migration("20190310015310_crete-database")]
-    partial class cretedatabase
+    [Migration("20190314000349_create-database")]
+    partial class createdatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,28 @@ namespace ResumeProject.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("ResumeProject.Models.Conference", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("EventDate");
+
+                    b.Property<string>("EventType");
+
+                    b.Property<int>("PersonID");
+
+                    b.Property<string>("Role");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("PersonID");
+
+                    b.ToTable("Conference");
+                });
 
             modelBuilder.Entity("ResumeProject.Models.Description", b =>
                 {
@@ -57,28 +79,6 @@ namespace ResumeProject.Migrations
                     b.ToTable("Education");
                 });
 
-            modelBuilder.Entity("ResumeProject.Models.Event", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Description");
-
-                    b.Property<DateTime>("EventDate");
-
-                    b.Property<string>("EventType");
-
-                    b.Property<int>("PersonID");
-
-                    b.Property<string>("Role");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("PersonID");
-
-                    b.ToTable("Event");
-                });
-
             modelBuilder.Entity("ResumeProject.Models.Experience", b =>
                 {
                     b.Property<int>("ID")
@@ -110,11 +110,11 @@ namespace ResumeProject.Migrations
 
                     b.Property<string>("Email");
 
-                    b.Property<string>("FirstName")
-                        .HasMaxLength(50);
+                    b.Property<string>("FirstName");
 
-                    b.Property<string>("LastName")
-                        .HasMaxLength(50);
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("MiddleName");
 
                     b.Property<int>("PhoneNumber");
 
@@ -139,6 +139,14 @@ namespace ResumeProject.Migrations
                     b.ToTable("PersonalSkill");
                 });
 
+            modelBuilder.Entity("ResumeProject.Models.Conference", b =>
+                {
+                    b.HasOne("ResumeProject.Models.Person", "People")
+                        .WithMany("Events")
+                        .HasForeignKey("PersonID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("ResumeProject.Models.Description", b =>
                 {
                     b.HasOne("ResumeProject.Models.Experience", "Experiences")
@@ -151,14 +159,6 @@ namespace ResumeProject.Migrations
                 {
                     b.HasOne("ResumeProject.Models.Person", "People")
                         .WithMany("Educations")
-                        .HasForeignKey("PersonID")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ResumeProject.Models.Event", b =>
-                {
-                    b.HasOne("ResumeProject.Models.Person", "People")
-                        .WithMany("Events")
                         .HasForeignKey("PersonID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ResumeProject.Migrations
 {
-    public partial class cretedatabase : Migration
+    public partial class createdatabase : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,13 +16,37 @@ namespace ResumeProject.Migrations
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Email = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(maxLength: 50, nullable: true),
-                    LastName = table.Column<string>(maxLength: 50, nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    MiddleName = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Person", x => x.ID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Conference",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Description = table.Column<string>(nullable: true),
+                    EventDate = table.Column<DateTime>(nullable: false),
+                    EventType = table.Column<string>(nullable: true),
+                    PersonID = table.Column<int>(nullable: false),
+                    Role = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Conference", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Conference_Person_PersonID",
+                        column: x => x.PersonID,
+                        principalTable: "Person",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -41,29 +65,6 @@ namespace ResumeProject.Migrations
                     table.PrimaryKey("PK_Education", x => x.ID);
                     table.ForeignKey(
                         name: "FK_Education_Person_PersonID",
-                        column: x => x.PersonID,
-                        principalTable: "Person",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Event",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(nullable: true),
-                    EventDate = table.Column<DateTime>(nullable: false),
-                    EventType = table.Column<string>(nullable: true),
-                    PersonID = table.Column<int>(nullable: false),
-                    Role = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Event", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Event_Person_PersonID",
                         column: x => x.PersonID,
                         principalTable: "Person",
                         principalColumn: "ID",
@@ -135,6 +136,11 @@ namespace ResumeProject.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Conference_PersonID",
+                table: "Conference",
+                column: "PersonID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Description_ExperienceID",
                 table: "Description",
                 column: "ExperienceID");
@@ -142,11 +148,6 @@ namespace ResumeProject.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Education_PersonID",
                 table: "Education",
-                column: "PersonID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Event_PersonID",
-                table: "Event",
                 column: "PersonID");
 
             migrationBuilder.CreateIndex(
@@ -163,13 +164,13 @@ namespace ResumeProject.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Conference");
+
+            migrationBuilder.DropTable(
                 name: "Description");
 
             migrationBuilder.DropTable(
                 name: "Education");
-
-            migrationBuilder.DropTable(
-                name: "Event");
 
             migrationBuilder.DropTable(
                 name: "PersonalSkill");

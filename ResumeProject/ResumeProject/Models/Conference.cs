@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ResumeProject.Models
 {
-    public class Event
+    public class Conference
     {
         public int ID { get; set; }
         public int PersonID { get; set; }
