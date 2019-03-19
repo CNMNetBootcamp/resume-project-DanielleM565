@@ -12,7 +12,7 @@ namespace ResumeProject.Models
         public int PersonID { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM-YYYY}", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime GraduationDate { get; set; }
 
         public string Degree { get; set; }

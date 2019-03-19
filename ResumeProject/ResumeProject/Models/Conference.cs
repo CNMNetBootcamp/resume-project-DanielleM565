@@ -16,7 +16,7 @@ namespace ResumeProject.Models
         public string Description { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:MM-YYYY}", ApplyFormatInEditMode = false)]
+        [DisplayFormat(DataFormatString = "{0:MM-yyyy}", ApplyFormatInEditMode = false)]
         public DateTime EventDate { get; set; }
 
         public Person People { get; set; }
