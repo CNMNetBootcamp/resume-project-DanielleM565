@@ -20,8 +20,17 @@ namespace ResumeProject.Controllers
         }
 
         // GET: People
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? ExperienceID)
         {
+            var person = await _context.People
+                .Include(e => e.Educations)
+                .Include(f => f.Events)
+                .Include(g => g.PersonalSkills)
+                .Include(h => h.Experiences)
+                    .ThenInclude(i => i.Descriptions)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(m => m.FirstName == "Danielle");
+
             return View(await _context.People.ToListAsync());
         }
 
@@ -32,15 +41,9 @@ namespace ResumeProject.Controllers
             {
                 return NotFound();
             }
-
+            //Person ID is hard coded for home page 
             var person = await _context.People
-                .Include(e => e.Educations)
-                .Include(f => f.Events)
-                .Include(g => g.PersonalSkills)
-                .Include(h => h.Experiences)
-                    .ThenInclude(i => i.Descriptions)
-                .AsNoTracking()
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(y => y.ID == id);
             if (person == null)
             {
                 return NotFound();

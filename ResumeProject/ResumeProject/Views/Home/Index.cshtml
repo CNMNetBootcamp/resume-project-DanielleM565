@@ -1,8 +1,261 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model ResumeProject.Models.Person
 
 <div class="jumbotron">
     <h1>Danielle Isles Martin</h1>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+
+
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        Contact Information
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Full Name
+                                </th>
+                                <th>
+                                    Phone Number
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    @Html.DisplayFor(modelItem => Model.FullName)
+                                </th>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model.PhoneNumber)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => Model.Email)
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                        Education
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    GraduationDate
+                                </th>
+                                <th>
+                                    Degree
+                                </th>
+                                <th>
+                                    School
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        @foreach (var education in Model.Educations)
+                        {
+
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => education.GraduationDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => education.Degree)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => education.School)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                        Experience
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @foreach (var exp in Model.Experiences)
+                    {
+                        <table class="table">
+
+                            <tbody>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        Role
+                                    </th>
+                                    <th>
+                                        Organization
+                                    </th>
+                                    <th>
+                                        Currently Still Working
+                                    </th>
+                                    <th>
+                                        Years of Service
+                                    </th>
+                                    <th>
+                                        Experience Type
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => exp.Role)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => exp.Organization)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => exp.CurrentlyStillWorking)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => exp.YearsService)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => exp.ExperienceType)
+                                </td>
+                            </tr>
+                            <table class="table">
+                                <tr>
+                                    <h4>Duties</h4>
+                                </tr>
+                                @foreach (var desc in exp.Descriptions)
+                                {
+                                    <ul>
+                                        <li>@Html.DisplayFor(ModelItem => desc.Duties)</li>
+                                    </ul>
+                                }
+                            </table>
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+                    Conferences
+                </a>
+            </h4>
+        </div>
+        <div id="collapseFour" class="panel-collapse collapse">
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                EventType
+                            </th>
+                            <th>
+                                Role
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                EventDate
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Events)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EventType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Role)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EventDate)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+                    Special Skills
+                </a>
+            </h4>
+        </div>
+        <div id="collapseFive" class="panel-collapse collapse">
+            <div class="panel-body">
+                <table class="table">
+                    <tbody>
+                        @foreach (var skill in Model.PersonalSkills)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => skill.Skill)
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

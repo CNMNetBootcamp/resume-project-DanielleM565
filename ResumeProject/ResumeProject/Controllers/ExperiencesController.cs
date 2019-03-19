@@ -20,8 +20,24 @@ namespace ResumeProject.Controllers
         }
 
         // GET: Experiences
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
+            ViewData["ExpierenceTypeSortParam"] = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
+            ViewData["CurrentSort"] = sortOrder;
+
+            var type = from e in _context.Experiences
+                       select e;
+
+            //switch (sortOrder)
+            //{
+            //    case "type_desc":
+            //        type = types.OrderByDescending(y => y.ExpierenceType);
+            //        break;
+            //    default:
+            //        type = types.OrderBy(y => y.ExpierenceType);
+            //        break;
+            //}
+
             var resumeContext = _context.Experiences.Include(e => e.People);
             return View(await resumeContext.ToListAsync());
         }
@@ -50,7 +66,8 @@ namespace ResumeProject.Controllers
         public IActionResult Create()
         {
             ViewData["PersonID"] = new SelectList(_context.People, "ID", "FullName");
-            ViewData["ExpierenceType"] = new SelectList(_context.Experiences, "ID", "Volunteering", "Work", "Teaching");
+            //ViewData["ExpierenceType"] = new SelectList("Volunteering", "Work", "Teaching");
+
             return View();
         }
 
@@ -70,7 +87,7 @@ namespace ResumeProject.Controllers
                     return RedirectToAction(nameof(Index));
                 }
                 ViewData["PersonID"] = new SelectList(_context.People, "ID", "ID", experience.PersonID);
-            ViewData["ExpierenceType"] = new SelectList("Volunteering", "Work", "Teaching");
+                //ViewData["ExpierenceType"] = new SelectList(_context.Experiences, "ID", "Volunteering", "Work", "Teaching");
             }
             catch (DbUpdateException)
             {
