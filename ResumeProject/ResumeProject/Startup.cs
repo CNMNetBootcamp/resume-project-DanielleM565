@@ -22,7 +22,7 @@ namespace ResumeProject
         }
 
         public IConfiguration Configuration { get; }
-        public object UIFramework { get; private set; }
+        //public object UIFramework { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -33,9 +33,14 @@ namespace ResumeProject
             services.AddDbContext<ResumeContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddAuthentication().AddFacebook(y => {
-                y.ClientId = Configuration["Facebook:client_id"];
-                y.ClientSecret = Configuration["Facebook:client_secret"];
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            {
+                microsoftOptions.ClientId = Configuration["Microsoft:client_id"];
+                microsoftOptions.ClientSecret = Configuration["Microsoft:client_secret"];
             });
 
             services.Configure<IdentityOptions>(options =>
