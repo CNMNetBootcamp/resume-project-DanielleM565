@@ -26,7 +26,8 @@ namespace ResumeProject.Models
         }
 
         [Display(Name = "Phone Number")]
-        public int PhoneNumber { get; set; }
+        [DisplayFormat(DataFormatString = "{0:###-###-####}", ApplyFormatInEditMode = false)]
+        public long PhoneNumber { get; set; }
         public string Email { get; set; }
 
         //navigational properties

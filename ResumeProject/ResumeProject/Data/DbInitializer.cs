@@ -114,7 +114,7 @@ namespace ResumeProject.Data
                     FirstName="Danielle",
                     MiddleName="Isles",
                     LastName="Martin",
-                    PhoneNumber=505-803-7519,
+                    PhoneNumber=5058037519,
                     Email="danielleislesmartin@gmail.com"
                 }
             };

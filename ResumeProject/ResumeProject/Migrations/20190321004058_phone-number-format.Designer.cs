@@ -11,9 +11,10 @@ using System;
 namespace ResumeProject.Migrations
 {
     [DbContext(typeof(ResumeContext))]
-    partial class ResumeContextModelSnapshot : ModelSnapshot
+    [Migration("20190321004058_phone-number-format")]
+    partial class phonenumberformat
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -115,7 +116,7 @@ namespace ResumeProject.Migrations
 
                     b.Property<string>("MiddleName");
 
-                    b.Property<long>("PhoneNumber");
+                    b.Property<int>("PhoneNumber");
 
                     b.HasKey("ID");
 
